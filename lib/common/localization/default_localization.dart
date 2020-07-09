@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:github_me/common/localization/g_string_base.dart';
 import 'package:github_me/common/localization/g_string_en.dart';

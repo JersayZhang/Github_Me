@@ -8,6 +8,7 @@ import 'package:github_me/page/dynamic/dynamic_page.dart';
 import 'package:github_me/page/trend/trend_page.dart';
 import 'package:github_me/page/user/my_page.dart';
 import 'package:github_me/widget/g_tabbar_widget.dart';
+import 'package:github_me/widget/g_title_bar.dart';
 
 /// 主页
 class HomePage extends StatefulWidget {
@@ -51,17 +52,44 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     List<Widget> tabs = [
       _renderTab(GIcons.MAIN_DT, GLocalizations.i18n(context).home_dynamic),
-      _renderTab(GIcons.MAIN_QS, GLocalizations.i18n(context).home_trend),
-      _renderTab(GIcons.MAIN_MY, GLocalizations.i18n(context).home_my),
+      _renderTab(GIcons.MAIN_QS, "趋势"),
+      _renderTab(GIcons.MAIN_MY, "我的"),
     ];
 
     ///增加返回按键监听
     return WillPopScope(
-      onWillPop: (){
+      onWillPop: () {
         return _dialogExitApp(context);
       },
       child: new GTabBarWidget(
-
+        drawer: null,
+        type: TabType.bottom,
+        tabItems: tabs,
+        tabViews: [
+          new DynamicPage(key: dynamicKey),
+          new TrendPage(key: trendKey),
+          new MyPage(key: myKey),
+        ],
+        onDoublePress: (index) {
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              break;
+            case 2:
+              break;
+          }
+        },
+        backgroundColor: GColors.primarySwatch,
+        indicatorColor: GColors.white,
+        title: GTitleBar(
+          "111",
+          iconData: GIcons.MAIN_SEARCH,
+          needRightLocalIcon: true,
+          onRightIconPressed: (centerPosition) {
+            ///搜索
+          },
+        ),
       ),
     );
   }

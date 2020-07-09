@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TrendPage extends StatefulWidget {
+  TrendPage({Key key}):super(key:key);
+
   @override
   TrendPageState createState() => TrendPageState();
 }
