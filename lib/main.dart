@@ -1,21 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:github_me/env/config_wrapper.dart';
+import 'package:github_me/env/dev.dart';
+import 'package:github_me/env/env_config.dart';
 import 'package:github_me/page/home/home_page.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+  runZoned(() {
+    runApp(
+      ConfigWrapper(
+        child: null,
+        config: EnvConfig.fromJson(config),
       ),
-      home: HomePage(),
     );
-  }
+  }, onError: (Object obj, StackTrace stack) {
+    print(obj);
+    print(stack);
+  });
 }
-
