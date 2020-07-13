@@ -1,13 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:github_me/common/event/http_error_event.dart';
 import 'package:github_me/common/event/index.dart';
 import 'package:github_me/common/localization/default_localization.dart';
+import 'package:github_me/common/localization/g_localizatons_delegate.dart';
 import 'package:github_me/common/net/code.dart';
+import 'package:github_me/common/style/g_style.dart';
+import 'package:github_me/common/utils/common_utils.dart';
+import 'package:github_me/page/welcome_page.dart';
+import 'package:github_me/redux/g_state.dart';
 import 'package:redux/redux.dart';
+import 'package:github_me/model/User.dart';
 
 class FlutterReduxApp extends StatefulWidget {
   @override
@@ -16,11 +23,24 @@ class FlutterReduxApp extends StatefulWidget {
 
 class _FlutterReduxAppState extends State<FlutterReduxApp>
     with HttpErrorListener, NavigatorObserver {
+  final store = new Store<GState>(
+    appReducer,
+
+    ///拦截器
+    middleware: null,
+
+    ///初始化数据
+    initialState: new GState(
+        userInfo: User.empty(),
+        login: false,
+        themeData: CommonUtils.getThemeData(GColors.primarySwatch),
+        locale: Locale('zh', 'CH')),
+  );
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 0),(){
+    Future.delayed(Duration(seconds: 0), () {
       navigator.context;
       navigator;
     });
@@ -29,10 +49,29 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
   @override
   Widget build(BuildContext context) {
     return new StoreProvider(
-        store: null,
-        child: new StoreBuilder(builder: (context,store){
+      store: store,
+      child: new StoreBuilder<GState>(builder: (context, store) {
+        store.state.platformLocale = WidgetsBinding.instance.window.locale;
+        return new MaterialApp(
+          ///多语言代理实现
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GLocalizationDelegate.delegate,
+          ],
+          supportedLocales: [store.state.locale],
+          locale: store.state.locale,
+          theme: store.state.themeData,
+          navigatorObservers: [this],
 
-        }),
+          routes: {
+            WelcomePage.sName: (context) {
+              _context = context;
+              return WelcomePage();
+            }
+          },
+        );
+      }),
     );
   }
 }
@@ -47,6 +86,15 @@ mixin HttpErrorListener on State<FlutterReduxApp> {
     stream = eventBus.on<HttpErrorEvent>().listen((event) {
       errorHandleFunction(event.code, event.message);
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (stream != null) {
+      stream.cancel();
+      stream = null;
+    }
   }
 
   ///网络错误提醒
