@@ -30,7 +30,7 @@ dependencies:
   fluttertoast: ^4.0.1
   flutter_redux: 0.6.0
   flare_flutter: ^2.0.3
-
+  rxdart: 0.23.1
   flutter_localizations:
     sdk: flutter
 

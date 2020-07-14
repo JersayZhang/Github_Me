@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:github_me/model/User.dart';
 import 'package:github_me/redux/locale_redux.dart';
 import 'package:github_me/redux/login_redux.dart';
+import 'package:github_me/redux/middleware/epic_middleware.dart';
 import 'package:github_me/redux/theme_redux.dart';
 import 'package:github_me/redux/user_redux.dart';
+import 'package:redux/redux.dart';
 
 class GState {
   ///用户信息
@@ -36,6 +38,10 @@ GState appReducer(GState state, action) {
       login: LoginReducer(state.login, action),
   );
 }
+
+final List<Middleware<GState>> middleware=[
+  EpicMiddleware<GState>(userInfoEpic),
+];
 
 
 

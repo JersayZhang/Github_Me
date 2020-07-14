@@ -27,7 +27,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
     appReducer,
 
     ///拦截器
-    middleware: null,
+    middleware: middleware,
 
     ///初始化数据
     initialState: new GState(

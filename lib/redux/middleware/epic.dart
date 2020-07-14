@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:github_me/redux/middleware/epic_store.dart';
+import 'epic_store.dart';
 
 typedef Epic<State> = Stream<dynamic> Function(
   Stream<dynamic> actions,

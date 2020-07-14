@@ -43,7 +43,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreBuilder(builder: (context, store) {
+    return StoreBuilder<GState>(builder: (context, store) {
       double size = 200;
       return Material(
         child: new Container(
