@@ -2,7 +2,11 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:github_me/common/style/g_style.dart';
+import 'package:github_me/common/utils/navigator_utils.dart';
 import 'package:github_me/redux/g_state.dart';
+import 'package:github_me/widget/diff_scale_text.dart';
+import 'package:github_me/widget/mole_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:redux/redux.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -38,7 +42,9 @@ class _WelcomePageState extends State<WelcomePage> {
         fontSize = 60;
       });
     });
-    new Future.delayed(const Duration(seconds: 2, milliseconds: 500), () {});
+    new Future.delayed(const Duration(seconds: 2, milliseconds: 500), () {
+      NavigatorUtils.goHome(context);
+    });
   }
 
   @override
@@ -55,13 +61,19 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
               Align(
                 alignment: Alignment(0.0, 0.3),
-                child: Text(text),
+                child: DiffScaleText(
+                  text: text,
+                  textStyle: GoogleFonts.akronim().copyWith(
+                    color: GColors.primaryDarkValue,
+                    fontSize: fontSize,
+                  ),
+                ),
               ),
               Align(
                 alignment: Alignment(0.0, 0.8),
-                child: null,
+                child: Mole(),
               ),
-              Align(
+              new Align(
                 alignment: Alignment.bottomCenter,
                 child: new Container(
                   width: size,

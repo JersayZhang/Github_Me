@@ -11,6 +11,8 @@ import 'package:github_me/common/localization/g_localizatons_delegate.dart';
 import 'package:github_me/common/net/code.dart';
 import 'package:github_me/common/style/g_style.dart';
 import 'package:github_me/common/utils/common_utils.dart';
+import 'package:github_me/common/utils/navigator_utils.dart';
+import 'package:github_me/page/home/home_page.dart';
 import 'package:github_me/page/welcome_page.dart';
 import 'package:github_me/redux/g_state.dart';
 import 'package:redux/redux.dart';
@@ -68,6 +70,10 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
             WelcomePage.sName: (context) {
               _context = context;
               return WelcomePage();
+            },
+            HomePage.sName: (context) {
+              _context = context;
+              return NavigatorUtils.pageContainer(new HomePage(), context);
             }
           },
         );
