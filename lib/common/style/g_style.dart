@@ -20,14 +20,48 @@ class GColors {
     },
   );
 
+  static const String primaryValueString = "#24292E";
+  static const String primaryLightValueString = "#42464b";
+  static const String primaryDarkValueString = "#121917";
+  static const String miWhiteString = "#ececec";
+  static const String actionBlueString = "#267aff";
+  static const String webDraculaBackgroundColorString = "#282a36";
+
   static const Color primaryValue = Color(0xFF24292E);
+  static const Color primaryLightValue = Color(0xFF42464b);
   static const Color primaryDarkValue = Color(0xFF121917);
 
+  static const Color cardWhite = Color(0xFFFFFFFF);
+  static const Color textWhite = Color(0xFFFFFFFF);
+  static const Color miWhite = Color(0xffececec);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color actionBlue = Color(0xff267aff);
+  static const Color subTextColor = Color(0xff959595);
+  static const Color subLightTextColor = Color(0xffc4c4c4);
+
+  static const Color mainBackgroundColor = miWhite;
+
+  static const Color mainTextColor = primaryDarkValue;
+  static const Color textColorWhite = white;
+}
+
+class GConstant {
+  static const String app_default_share_url = "https://github.com/JersayZhang/Github_Me";
+
+  static const middleTextWhiteSize = 16.0;
+
+  static const middleText = TextStyle(
+    color: GColors.mainTextColor,
+    fontSize: middleTextWhiteSize,
+  );
 }
 
 class GIcons {
   static const String FONT_FAMILY = 'wxcIconFont';
+
+  static const IconData HOME = const IconData(0xe624, fontFamily: GIcons.FONT_FAMILY);
+  static const IconData MORE = const IconData(0xe674, fontFamily: GIcons.FONT_FAMILY);
+  static const IconData SEARCH = const IconData(0xe61c, fontFamily: GIcons.FONT_FAMILY);
 
   static const IconData MAIN_DT = const IconData(0xe684, fontFamily: GIcons.FONT_FAMILY);
   static const IconData MAIN_QS = const IconData(0xe818, fontFamily: GIcons.FONT_FAMILY);

@@ -22,4 +22,22 @@ abstract class GStringBase {
   String get network_error;
 
   String get github_refused;
+
+  String get Login_deprecated;
+
+  String get option_web;
+
+  String get option_copy;
+
+  String get option_share;
+
+  String get option_web_launcher_error;
+
+  String get option_share_title;
+
+  String get option_share_copy_success;
+
+  String get nothing_now;
+
+  String get loading_text;
 }

@@ -14,6 +14,9 @@ class GStringEn extends GStringBase {
   String home_trend = "My";
 
   @override
+  String Login_deprecated = "The API via password authentication will remove on November 13, 2020 by Github.";
+
+  @override
   String network_error_401 = "Http 401";
   @override
   String network_error_403 = "Http 403";
@@ -30,4 +33,22 @@ class GStringEn extends GStringBase {
   @override
   String github_refused =
       "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ";
+
+  @override
+  String option_web = "browser";
+  @override
+  String option_copy = "copy";
+  @override
+  String option_share = "share";
+  @override
+  String option_web_launcher_error = "url error";
+  @override
+  String option_share_title = "share form GSYGitHubFlutter： ";
+  @override
+  String option_share_copy_success = "Copy Success";
+
+  @override
+  String nothing_now = "Nothing";
+  @override
+  String loading_text = "Loading···";
 }
