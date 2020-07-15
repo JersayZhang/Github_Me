@@ -51,4 +51,7 @@ class GStringEn extends GStringBase {
   String nothing_now = "Nothing";
   @override
   String loading_text = "Loading···";
+
+  @override
+  String oauth_text = "OAuth";
 }

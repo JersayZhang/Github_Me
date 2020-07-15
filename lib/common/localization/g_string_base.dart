@@ -40,4 +40,6 @@ abstract class GStringBase {
   String get nothing_now;
 
   String get loading_text;
+
+  String get oauth_text;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:github_me/page/home/home_page.dart';
+import 'package:github_me/page/login/login_webview.dart';
 
 class NavigatorUtils {
   ///跳转到主页
@@ -12,7 +13,7 @@ class NavigatorUtils {
   }
 
   static Future goLoginWebView(BuildContext context, String url, String title) {
-    ///todo
+    return NavigatorRouter(context, new LoginWebView(url, title));
   }
 
   ///公共打开方式

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:github_me/common/address.dart';
 import 'package:github_me/common/config/config.dart';
 import 'package:github_me/common/local/local_storage.dart';
 import 'package:github_me/common/localization/default_localization.dart';
@@ -74,6 +75,11 @@ mixin LoginBloC on State<LoginPage> {
   }
 
   oauthLogin() async {
-    ///todo 去web页面登录
+    String code = await NavigatorUtils.goLoginWebView(
+        context, Address.getOAuthUrl(), "${GLocalizations.i18n(context).oauth_text}");
+
+    if(code!=null&&code.length>0){
+      StoreProvider.of<GState>(context).dispatch(OAuthAction(context,code));
+    }
   }
 }

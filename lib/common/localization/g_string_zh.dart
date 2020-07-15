@@ -51,4 +51,7 @@ class GStringZh extends GStringBase {
   String nothing_now = "目前什么都没有。";
   @override
   String loading_text = "努力加载中···";
+
+  @override
+  String oauth_text = "安全登陆";
 }
