@@ -5,9 +5,13 @@ import 'package:github_me/common/address.dart';
 import 'package:github_me/common/config/config.dart';
 import 'package:github_me/common/local/local_storage.dart';
 import 'package:github_me/common/localization/default_localization.dart';
+import 'package:github_me/common/style/g_style.dart';
 import 'package:github_me/common/utils/navigator_utils.dart';
 import 'package:github_me/redux/g_state.dart';
 import 'package:github_me/redux/login_redux.dart';
+import 'package:github_me/widget/animated_background.dart';
+import 'package:github_me/widget/g_input_widget.dart';
+import 'package:github_me/widget/particle/particle_widget.dart';
 
 class LoginPage extends StatefulWidget {
   static final String sName = "login";
@@ -16,10 +20,97 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with LoginBloC {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    ///触摸收起键盘
+    return new GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Scaffold(
+        body: new Container(
+          color: Theme.of(context).primaryColor,
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(child: AnimatedBackground()),
+              Positioned.fill(child: ParticlesWidget(30)),
+              new Center(
+                child: SafeArea(
+                  child: SingleChildScrollView(
+                    child: new Card(
+                      elevation: 5.0,
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      color: GColors.cardWhite,
+                      margin: const EdgeInsets.only(left: 30.0, bottom: 30.0),
+                      child: new Padding(
+                        padding:
+                            new EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0, bottom: 0.0),
+                        child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            new Image(
+                                image: new AssetImage(GIcons.DEFAULT_USER_ICON),
+                                width: 90.0,
+                                height: 90.0),
+                            new Padding(padding: new EdgeInsets.all(10.0)),
+                            new GInputWidget(
+                              hintText: GLocalizations.i18n(context).login_username_hint_text,
+                              iconData: GIcons.LOGIN_USER,
+                              onChanged: (String value) {
+                                _userName = value;
+                              },
+                              controller: userController,
+                            ),
+                            new Padding(padding: new EdgeInsets.all(10.0)),
+                            new GInputWidget(
+                              hintText: GLocalizations.i18n(context).login_password_hint_text,
+                              iconData: GIcons.LOGIN_PW,
+                              obscureText: true,
+                              onChanged: (String value) {
+                                _password = value;
+                              },
+                              controller: pwController,
+                            ),
+                            new Padding(padding: new EdgeInsets.all(10.0)),
+                            Container(
+                              height: 50,
+                              child: Row(
+                                children: <Widget>[
+                                  new Expanded(
+
+                                      ///todo
+                                      ),
+                                ],
+                              ),
+                            ),
+                            new Padding(padding: new EdgeInsets.all(15.0)),
+                            InkWell(
+                              onTap: () {
+                                ///todo
+                              },
+                              child: Text(
+                                GLocalizations.i18n(context).switch_language,
+                                style: TextStyle(color: GColors.subTextColor),
+                              ),
+                            ),
+                            new Padding(padding: new EdgeInsets.all(15.0)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -78,8 +169,8 @@ mixin LoginBloC on State<LoginPage> {
     String code = await NavigatorUtils.goLoginWebView(
         context, Address.getOAuthUrl(), "${GLocalizations.i18n(context).oauth_text}");
 
-    if(code!=null&&code.length>0){
-      StoreProvider.of<GState>(context).dispatch(OAuthAction(context,code));
+    if (code != null && code.length > 0) {
+      StoreProvider.of<GState>(context).dispatch(OAuthAction(context, code));
     }
   }
 }
