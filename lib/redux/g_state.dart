@@ -30,18 +30,15 @@ class GState {
 ///创建Reducer
 GState appReducer(GState state, action) {
   return GState(
-
     ///通过UserReducer将GState内的userInfo和action关联起来
-      userInfo: UserReducer(state.userInfo, action),
-      themeData: ThemeDataReducer(state.themeData, action),
-      locale: LocaleReducer(state.locale, action),
-      login: LoginReducer(state.login, action),
+    userInfo: UserReducer(state.userInfo, action),
+    themeData: ThemeDataReducer(state.themeData, action),
+    locale: LocaleReducer(state.locale, action),
+    login: LoginReducer(state.login, action),
   );
 }
 
-final List<Middleware<GState>> middleware=[
+final List<Middleware<GState>> middleware = [
   EpicMiddleware<GState>(userInfoEpic),
+  LoginMiddleware(),
 ];
-
-
-

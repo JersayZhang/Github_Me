@@ -6,4 +6,8 @@ class UserDao{
 
   }
 
+  static clearAll(Store store) async {
+   ///todo
+  }
+
 }

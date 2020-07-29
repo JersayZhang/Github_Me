@@ -43,7 +43,7 @@ class _WelcomePageState extends State<WelcomePage> {
       });
     });
     new Future.delayed(const Duration(seconds: 2, milliseconds: 500), () {
-      NavigatorUtils.goHome(context);
+      NavigatorUtils.goLogin(context);
     });
   }
 

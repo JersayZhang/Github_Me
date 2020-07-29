@@ -6,10 +6,12 @@ import 'package:github_me/common/config/config.dart';
 import 'package:github_me/common/local/local_storage.dart';
 import 'package:github_me/common/localization/default_localization.dart';
 import 'package:github_me/common/style/g_style.dart';
+import 'package:github_me/common/utils/common_utils.dart';
 import 'package:github_me/common/utils/navigator_utils.dart';
 import 'package:github_me/redux/g_state.dart';
 import 'package:github_me/redux/login_redux.dart';
 import 'package:github_me/widget/animated_background.dart';
+import 'package:github_me/widget/g_flex_button.dart';
 import 'package:github_me/widget/g_input_widget.dart';
 import 'package:github_me/widget/particle/particle_widget.dart';
 
@@ -82,16 +84,32 @@ class _LoginPageState extends State<LoginPage> with LoginBloC {
                               child: Row(
                                 children: <Widget>[
                                   new Expanded(
-
-                                      ///todo
-                                      ),
+                                    child: new GFlexButton(
+                                      text: GLocalizations.i18n(context).login_text,
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 16,
+                                      onPress: loginIn,
+                                    ),
+                                  ),
+                                  new SizedBox(
+                                    width: 10,
+                                  ),
+                                  new Expanded(
+                                    child: new GFlexButton(
+                                      text: GLocalizations.i18n(context).oauth_text,
+                                      color: Theme.of(context).primaryColor,
+                                      textColor: GColors.textWhite,
+                                      fontSize: 16,
+                                      onPress: oauthLogin,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                             new Padding(padding: new EdgeInsets.all(15.0)),
                             InkWell(
                               onTap: () {
-                                ///todo
+                                CommonUtils.showLanguageDialog(context);
                               },
                               child: Text(
                                 GLocalizations.i18n(context).switch_language,

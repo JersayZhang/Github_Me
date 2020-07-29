@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:github_me/common/dao/user_dao.dart';
+import 'package:github_me/common/utils/navigator_utils.dart';
+import 'package:github_me/redux/g_state.dart';
 import 'package:redux/redux.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 final LoginReducer = combineReducers<bool>([
   TypedReducer<bool, LoginSuccessAction>(_loginResult),
@@ -8,7 +12,7 @@ final LoginReducer = combineReducers<bool>([
 
 bool _loginResult(bool result, LoginSuccessAction action) {
   if (action.success == true) {
-    ///todo
+    NavigatorUtils.goHome(action.context);
   }
   return action.success;
 }
@@ -43,4 +47,19 @@ class OAuthAction {
   final String code;
 
   OAuthAction(this.context, this.code);
+}
+
+class LoginMiddleware implements MiddlewareClass<GState> {
+  @override
+  dynamic call(Store<GState> store, dynamic action, NextDispatcher next) {
+    if (action is LogoutAction) {
+      UserDao.clearAll(store);
+      ;
+      CookieManager().clearCookies();
+
+      ///todo
+      NavigatorUtils.goLogin(action.context);
+    }
+    next(action);
+  }
 }

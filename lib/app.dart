@@ -13,6 +13,7 @@ import 'package:github_me/common/style/g_style.dart';
 import 'package:github_me/common/utils/common_utils.dart';
 import 'package:github_me/common/utils/navigator_utils.dart';
 import 'package:github_me/page/home/home_page.dart';
+import 'package:github_me/page/login/login_page.dart';
 import 'package:github_me/page/welcome_page.dart';
 import 'package:github_me/redux/g_state.dart';
 import 'package:redux/redux.dart';
@@ -74,6 +75,10 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>
             HomePage.sName: (context) {
               _context = context;
               return NavigatorUtils.pageContainer(new HomePage(), context);
+            },
+            LoginPage.sName: (context) {
+              _context = context;
+              return NavigatorUtils.pageContainer(new LoginPage(), context);
             }
           },
         );
